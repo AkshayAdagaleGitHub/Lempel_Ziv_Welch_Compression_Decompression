@@ -1,1 +1,95 @@
-# Lempel_Ziv_Welch_Compression_Decompression-master
+# Lempel_Ziv_Welch_Compression_Decompression
+The Lempel–Ziv–Welch (LZW) algorithm is a lossless data compression algorithm. 
+LZW is an adaptive compression algorithm that does not assume prior knowledge of the input data distribution.
+This algorithm works well when the input data is sufficiently large and there is redundancy in the data. 
+Two examples of commonly used file formats that use LZW compression are the GIF image format served from websites and the TIFF image format. 
+LZW compression is also suitable for compressing text files, and is the algorithm in the compress Unix file compression utility.
+****************************************************************************
+Name: Akshay Adagale
+IDE: Eclipse
+Implemented in Java
+Contains input1.txt(file to encode),input1.lzw(encodedFile) and input1_decoded.txt (decoded values of input1.lzw file)
+Contains input2.txt(file to encode),input2.lzw(encodedFile) and input2_decoded.txt(Contains decoded values of input2.lzw file)
+
+****************************************************************************
+
+This LZW has two steps:
+
+1. Encoding/Compressing (Encoder.java)
+
+2. Decoding/Decompressing (Decode.java)
+
+********************************************************************************************************************************************************
+
+Encoder.java
+
+We provide the input1.txt and input2.txt to the encoder.java along with the bit length (eg.16 bit) and we will get
+the output input1.lzw and input2.lzw files, which contain the enocoded values.
+
+The Encoder.java has encodeData , writeTofile and readFile functions.
+
+1)private List<Integer> encodeData(String inputString, int bit)
+-It takes the inputString from the file and the number of bits as input.
+-It contains the Map<String,Integer> to store the values of the first 0-255 asci values(eg.(a,97)).
+-A encodedArrayList to store the encoded values.
+-In the next few lines we implement the LZW encoding algorithm.
+
+2)private void writeToFile(List<Integer> encodedList, String inputFileName)
+-It takes the encodedArrayList as input in the encodedList and also the 	inputFileName.
+-We use BufferedWriter to write to the file.
+
+3)private String readFile(String fileName)
+-We use this function to read from the file using StringBuffer and 	BufferedReader.
+-This function returns the stringBuffer which contains all the data from the file.
+
+4)public static void main(String[] args)
+-To create the object of the class
+-Take the fileName and bitLength from the command line and store it in the 	inputFileName and bitLength variables.
+-We check the values for null and empty string.
+
+Execute the program from command line java <Encoder.java> <inputFileName> <bitLength>
+eg: java Encoder input1.txt 16
+
+input
+
+The String to encode (abbbab) and bitLenght (16)
+
+output
+
+input1.lzw (Contains the encoded data (9798257256))
+
+
+********************************************************************************************************************************************************
+Decode.java
+
+We provide input1.lzw and input2.lzw as the decoded file as input along with the bitLength.
+
+The file contains:
+ 
+ 1)public static void main(String[] args)
+ -It takes the encodedFileName and bitLength from the command line.
+ -It Validates to check for null or empty input.
+ 
+ 2)private String decodeFile(String encodedFileName, int bit)
+ -It takes encodedFileName and bitLength as input parameters
+ -It reads the encodedFile using InputStream and InputStreamReader
+ -It stores the encoded values in and List encodedList.
+ -We the use the Map<Integer,String> charTable to store the key,values (eg.	(97,a)).
+ -It implements the LZW decoder algorithm.
+ -It stores the decoded values inthe StringBuffer decodedStringBuffer.
+ 
+ 3)private void createDecodedFile(String decodedValues, String encodedFileName)
+ -It take the decoded values and encodedFileName as input.
+ -It uses FileWriter and BufferedReader to write into the file.
+ 
+ The Decode.java file can be executed as java <decode.java> <input1.lzw> <bitLenght>
+ eg. java Decode input1.lzw 16
+
+input
+
+input1.lzw (Contains the encoded data (9798257256)) and bitLength (16)
+
+output
+
+input1_decoded.txt (Contains abbbab)
+ 
